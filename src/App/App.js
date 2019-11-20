@@ -16,9 +16,28 @@ class App extends Component {
     folders: []
   };
 
+  getApiFolders() {
+    return fetch('http://localhost:9090/folders')
+      .then(res => res.json())
+      .then(folders => this.setState({folders: folders}))
+      .catch(e => {
+        console.log(e.message);
+      });
+  }
+
+  getApinotes() {
+    return fetch('http://localhost:9090/notes')
+      .then(res => res.json())
+      .then(notes => this.setState({notes: notes}))
+      .catch(e => {
+        console.log(e.message);
+      });
+  }
+  
   componentDidMount() {
     // fake date loading from API call
-    setTimeout(() => this.setState(dummyStore), 600);
+    this.getApiFolders();
+    this.getApinotes();
   }
 
   renderNavRoutes() {
