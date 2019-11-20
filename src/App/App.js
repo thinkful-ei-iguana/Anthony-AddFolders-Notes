@@ -5,7 +5,6 @@ import NoteListNav from "../NoteListNav/NoteListNav";
 import NotePageNav from "../NotePageNav/NotePageNav";
 import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
-import dummyStore from "../dummy-store";
 import { getNotesForFolder, findNote, findFolder } from "../notes-helpers";
 import "./App.css";
 import UserContext from "../Context/Context";
@@ -17,27 +16,45 @@ class App extends Component {
   };
 
   getApiFolders() {
-    return fetch('http://localhost:9090/folders')
+    return fetch("http://localhost:9090/folders")
       .then(res => res.json())
-      .then(folders => this.setState({folders: folders}))
+      .then(folders => this.setState({ folders: folders }))
       .catch(e => {
         console.log(e.message);
       });
   }
 
-  getApinotes() {
-    return fetch('http://localhost:9090/notes')
+  getApiNotes() {
+    fetch("http://localhost:9090/notes")
       .then(res => res.json())
-      .then(notes => this.setState({notes: notes}))
+      .then(notes => this.setState({ notes: notes }))
       .catch(e => {
         console.log(e.message);
       });
   }
-  
+
+  deleteNote(noteId) {
+    fetch(`http://localhost:9090/notes/${noteId}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        // if (res.ok) {
+        this.getApiNotes();
+        //  } else {
+        //   console.log(res);
+        // }
+      })
+      .catch(err => console.log(err.message));
+  }
+
   componentDidMount() {
     // fake date loading from API call
     this.getApiFolders();
-    this.getApinotes();
+    this.getApiNotes();
   }
 
   renderNavRoutes() {
@@ -78,7 +95,8 @@ class App extends Component {
       <UserContext.Provider
         value={{
           folders: this.state.folders,
-          notes: this.state.notes
+          notes: this.state.notes,
+          deleteNote: this.deleteNote
         }}
       >
         {["/", "/folder/:folderId"].map(path => (
