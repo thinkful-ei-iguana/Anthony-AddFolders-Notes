@@ -12,9 +12,8 @@ export default class NoteListMain extends Component {
 
   render() {
     const folderId = this.props.match.params.folderId;
-    const { notes, folders } = this.context;
+    const { notes } = this.context;
     const folderNotes = getNotesForFolder(notes, folderId);
-    console.log(Context);
 
     return (
       <section className="NoteListMain">
@@ -41,7 +40,3 @@ export default class NoteListMain extends Component {
     );
   }
 }
-
-NoteListMain.defaultProps = {
-  notes: []
-};
