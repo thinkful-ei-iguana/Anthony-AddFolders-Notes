@@ -13,9 +13,12 @@ export default class NotePageMain extends React.Component {
     const note = findNote(notes, noteId);
 
     const noteDeletePage = noteId => {
-      deleteNote(noteId);
-      this.props.history.push(`/`);
-      console.log(`Deleting this ${noteId}`);
+      Promise.all([
+        deleteNote(noteId)
+      ]).then(() => {
+        console.log('.then ran')
+        this.props.history.push(`/`);
+      });
     };
 
     return (

@@ -8,7 +8,7 @@ import Context from "../Context/Context";
 export default class Note extends React.Component {
   static contextType = Context;
   render() {
-    const { deleteNote } = this.context;
+    const deleteNote = this.props.action || this.context.deleteNote;
     return (
       <div className="Note">
         <h2 className="Note__title">
@@ -17,7 +17,7 @@ export default class Note extends React.Component {
         <button
           className="Note__delete"
           type="button"
-          onClick={() => this.props.action(this.props.id)}
+          onClick={() => deleteNote(this.props.id)}
         >
           <FontAwesomeIcon icon="trash-alt" /> remove
         </button>

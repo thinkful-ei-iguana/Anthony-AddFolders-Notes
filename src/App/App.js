@@ -42,11 +42,8 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.ok) {
-          this.getApiNotes();
-        } else {
-          console.log(res);
-        }
+        this.getApiNotes();
+        console.log('Delete Note API ran');       
       })
       .catch(err => console.log(err.message));
   };
