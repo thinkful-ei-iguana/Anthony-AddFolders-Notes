@@ -24,16 +24,16 @@ class App extends Component {
       });
   }
 
-  getApiNotes() {
+  getApiNotes = () => {
     fetch("http://localhost:9090/notes")
       .then(res => res.json())
       .then(notes => this.setState({ notes: notes }))
       .catch(e => {
         console.log(e.message);
       });
-  }
+  };
 
-  deleteNote(noteId) {
+  deleteNote = noteId => {
     fetch(`http://localhost:9090/notes/${noteId}`, {
       method: "DELETE",
       headers: {
@@ -42,14 +42,14 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        // if (res.ok) {
-        this.getApiNotes();
-        //  } else {
-        //   console.log(res);
-        // }
+        if (res.ok) {
+          this.getApiNotes();
+        } else {
+          console.log(res);
+        }
       })
       .catch(err => console.log(err.message));
-  }
+  };
 
   componentDidMount() {
     // fake date loading from API call

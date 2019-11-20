@@ -6,14 +6,26 @@ import { findNote } from "../notes-helpers";
 
 export default class NotePageMain extends React.Component {
   static contextType = Context;
+
   render() {
     const noteId = this.props.match.params.noteId;
-    const { notes } = this.context;
+    const { notes, deleteNote } = this.context;
     const note = findNote(notes, noteId);
-    console.log(note);
+
+    const noteDeletePage = noteId => {
+      deleteNote(noteId);
+      this.props.history.push(`/`);
+      console.log(`Deleting this ${noteId}`);
+    };
+
     return (
       <section className="NotePageMain">
-        <Note id={note.id} name={note.name} modified={note.modified} />
+        <Note
+          id={note.id}
+          name={note.name}
+          modified={note.modified}
+          action={noteDeletePage}
+        />
         <div className="NotePageMain__content">
           {note.content.split(/\n \r|\n/).map((para, i) => (
             <p key={i}>{para}</p>
