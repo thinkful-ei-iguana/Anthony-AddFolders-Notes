@@ -6,7 +6,6 @@ import CircleButton from "../CircleButton/CircleButton";
 import "./NoteListMain.css";
 
 export default function NoteListMain(props) {
-  const note = findNote(notes, noteId);
 
   return (
     <section className="NoteListMain">
