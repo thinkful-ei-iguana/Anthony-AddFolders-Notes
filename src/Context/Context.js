@@ -3,7 +3,9 @@ import React from "react";
 const UserContext = React.createContext({
   folders: [],
   notes: [],
-  deleteNote: () => {}
+  deleteNote: () => {},
+  addFolder: () => {},
+  addNote: () => {}
 });
 
 export default UserContext;
