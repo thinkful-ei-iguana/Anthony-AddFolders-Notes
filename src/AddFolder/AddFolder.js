@@ -1,5 +1,6 @@
 import React from "react";
 import Context from "../Context/Context";
+import PropTypes from "prop-types";
 
 export default class AddFolder extends React.Component {
   static contextType = Context;

@@ -6,9 +6,15 @@ import CircleButton from "../CircleButton/CircleButton";
 import "./NoteListMain.css";
 import { getNotesForFolder } from "../notes-helpers";
 import Context from "../Context/Context";
+import PropTypes from "prop-types";
 
 export default class NoteListMain extends Component {
   static contextType = Context;
+  static defaultProps = {
+    match: {
+      params: {}
+    }
+  };
 
   render() {
     const folderId = this.props.match.params.folderId;
@@ -40,3 +46,7 @@ export default class NoteListMain extends Component {
     );
   }
 }
+
+NoteListMain.propTypes = {
+  match: PropTypes.shape({ params: PropTypes.object })
+};

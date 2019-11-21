@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-class Boundary extends React.Component {
+export default class Boundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,4 +20,7 @@ class Boundary extends React.Component {
     return this.props.children;
   }
 }
-export default Boundary;
+
+Boundary.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+};
